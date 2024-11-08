@@ -1,0 +1,11 @@
+
+<%- include("./layout/header") -%>
+<h1>Connexion</h1>
+<form method="post" action='/login' id="form-login-admin">
+    <label>  Login: <input name='email' class="form-control" required></label>
+    <label>Mot de passe : <input type="password" name='password' class="form-control" required></label>
+    <button type="submit" class="btn btn-primary">Connexion</button>
+    <small>Mot de passe oublié</small>
+</form>
+
+<%- include("./layout/footer") -%>

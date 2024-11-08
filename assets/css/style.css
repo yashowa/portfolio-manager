@@ -1,0 +1,203 @@
+body{
+  font-family: arial;
+}
+
+label{
+  display:block;
+  padding: 5px;
+  border-radius:5px;
+  font-weight: bold;
+}
+select{
+  padding: 5px;
+  border-radius: 5px;
+}
+input[type='text']{
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid;
+}
+
+.notification-push{
+
+  top: 15px;
+  z-index: 5001;
+}
+
+.img-biblio{
+  max-width:100px;
+  height: auto;
+}
+
+.btn-danger *{
+  color: #ffffff;
+}
+
+.button-group{
+  margin-top:15px;
+}
+#nav-user-info{
+  padding: 7px 15px;
+    justify-content: space-between;
+  align-items: center;
+    border-bottom: 1px solid #dadada;
+}
+#nav-user-info ul{
+  float: right;
+  font-size: 12px;
+}
+#nav-user-info ul .nav-pseudo{
+font-weight: bold;
+padding: 0 15px;
+}
+
+
+.row-inactive{
+  color: #856404;
+  background-color: #fff3cd !important;
+  border-color: #ffeeba;
+}
+
+.red-target{
+  border: 1px solid #990000 !important;
+}
+
+.modal label{
+  font-weight: bold;
+  ;
+}
+
+.blc-img{
+  margin-bottom:15px;
+  background: #dedede;
+  width: 240px;
+
+}
+
+table td .form-check{
+  text-align: center;
+}
+
+
+
+/*UPLOAD FILE GESTION*/
+
+#loadFileModal{
+  background: rgba(0,0,0,0.78);
+}
+
+.choose-file{
+  margin-bottom:0 !important ;
+}
+
+.change-media-link{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*position: absolute;*/
+  color: white !important;
+  visibility: hidden;
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+  background-color: rgba(0,0,0,0.7);
+  height: inherit;
+  width: inherit;
+  text-align: center;
+  flex: 1;
+}
+.change-event-link{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: white !important;
+  opacity: 0;
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+  background-color: rgba(0,0,0,0.7);
+  height: inherit;
+  width: inherit;
+  text-align: center;
+  flex: 1;
+}
+
+.blc-img:hover .change-media-link{
+opacity: 1;
+}
+.blc-img:hover .change-event-link{
+opacity: 1;
+}
+.blc-img{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-size:contain;
+  background-position:center;
+  background-image:url('/assets/img/default.png');
+  background-repeat: no-repeat !important;
+  width: 100%;
+  height: inherit;
+  -webkit-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+
+
+}
+.wrap-img{
+  height: 240px;
+  width: 30%;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+#myTabEventContent{
+  padding-top: 15px;
+}
+
+.modal-resist-open{
+  overflow: hidden !important;
+}
+.modal-resist-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.js-hide{
+  -webkit-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  -moz-transition: all 300ms ease;
+  transition: all 300ms ease;
+  opacity: 0%;
+  height: 0;
+  overflow: hidden;
+}
+
+/*MODULES VIEWS*/
+.uninstall-module{
+  display: inline-block;
+}
+.blc-modulename{
+  padding-top: 15px;
+}
+
+.block-notifications{
+  position: fixed;
+  z-index: 6000;
+  top:35px;
+  left:15px;
+
+}
+
+.row-disabled{
+  background: pink
+}
+
+.tab-content{
+  margin-top: 15px;
+}

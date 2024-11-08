@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "web_accessible_resources": [
+      {
+        "resources": [],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }
+  
