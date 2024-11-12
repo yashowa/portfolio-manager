@@ -20,12 +20,17 @@ fs.readdirSync(__dirname)
     db[model.name] = model;
   });
 
+  console.log(db);
 // Création des relations entre les modèles, si définies dans les modèles
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
+
+console.log("Associations pour Media:", db.Media.associations);
+console.log("Associations pour MediaLang:", db.MediaLang.associations);
+console.log("Associations pour Language:", db.Language.associations);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

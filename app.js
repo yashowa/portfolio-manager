@@ -1,5 +1,4 @@
 
-
 const express =require ('express');
 const app =express();
 const path = require('path');
@@ -8,6 +7,9 @@ const bcrypt = require('bcrypt')
 const db = require('./models')
 const fileupload = require('./core/fileupload');
 const puppeteer = require('puppeteer');
+const { and, where } = require('sequelize');
+  
+
 require('dotenv').config();
 
 
@@ -40,21 +42,97 @@ function requireAuth(req, res, next) {
   if (req.session.user) {
     next(); // Utilisateur authentifié, passe à la route suivante
   } else {
-    res.status(401).send('Accès refusé, veuillez vous connecter');
+    res.redirect('/login')
+    //res.status(401).send('Accès refusé, veuillez vous connecter');
   }
 }
 
 app.get('/',requireAuth, (req, res)=>{
-    res.redirect('dashboard')
+    res.redirect('/dashboard')
 })
-app.get('/book',requireAuth, (req, res)=>{
-    res.send('book')
+
+app.get('/media/list', requireAuth, async (req, res)=>{
+
+  const defaultLang = process.env.DEFAULT_LANG;
+
+  try{ 
+    const books = await db.Media.findAll({ include: [{ 
+      model: db.MediaLang,
+      include:[
+      {
+        model: db.Language,
+        where: {code: defaultLang},
+        required:true
+      }],
+      required:true   }],
+    }); 
+
+
+    const medias = books.map((book)=>{
+
+      const bookJson = book.toJSON() 
+      const mediaLang = book.MediaLangs && book.MediaLangs[0];
+      
+      return {
+        ...bookJson,
+        title: mediaLang.title,
+      }
+    })
+
+    res.render('media-list',{medias})
+
+  } catch (error) {
+    console.error("Erreur lors de la récupération des medias :", error);
+    res.status(500).send("Erreur lors de la récupération des medias");
+  }
 })
+
+
+
+app.get('/event/list',requireAuth , async (req, res)=>{
+
+  const defaultLang = process.env.DEFAULT_LANG;
+
+  try{ 
+    const listEvent = await db.Event.findAll({ include: [{ 
+      model: db.EventLang,
+      include:[
+      {
+        model: db.Language,
+        where: {code: defaultLang},
+        required:true
+      }],
+      required:true   }],
+    }); 
+
+
+    const events = listEvent.map((book)=>{
+
+      const eventJson = book.toJSON() 
+      const eventLang = book.EventLangs && book.EventLangs[0];
+      
+      return {
+        ...eventJson,
+        title: eventLang.title,
+        category: eventLang.cat_event,
+      }
+    })
+
+    res.render('event/event-list',{events})
+
+  } catch (error) {
+    console.error("Erreur lors de la récupération des medias :", error);
+    res.status(500).send("Erreur lors de la récupération des medias");
+  }
+})
+
+
+
 app.get('/event',requireAuth , (req, res)=>{
-    res.send('event')
+  res.send('event')
 })
 app.get('/dashboard', requireAuth,(req, res)=>{
-  res.send('dashboard')
+  res.render('dashboard')
 })
 
 app.get('/notification', (req, res)=>{
@@ -76,10 +154,10 @@ app.get('/login',(req, res)=>{
     res.render('login')
 })
 
-app.post('/login',async (req, res)=>{
+app.post('/login', async (req, res)=>{
   console.log(req.body,'body')
-  const {email,password} = req.body
-  console.log(email,password)
+  const {email, password} = req.body
+  console.log(email, password)
   try {
     // Récupérer tous les utilisateurs
     const user = await db.User.findOne({ where: { email,passwd:password } })
@@ -93,8 +171,9 @@ if(user){
 
 } catch (error) {
   console.error("Erreur lors de la récupération des utilisateurs :", error);
+  res.render('login')
 }
-    res.render('login')
+
 })
 
 app.listen(3000,()=> {

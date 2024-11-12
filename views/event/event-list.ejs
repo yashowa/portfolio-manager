@@ -1,0 +1,32 @@
+
+<%- include("../layout/header") -%>
+
+<h2><i class="fa fa-calendar"></i> Evènements<a class="btn btn-sm btn-success mb-2 js-add-event" href='/admin/event/new'> <i class="fa fa-plus"></i> Nouveau</a></h2>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active"  id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="true">Agenda</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link "  id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="search" aria-selected="false" >Recherche avancée</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link "  id="category-tab" data-toggle="tab" href="#category" role="tab" aria-controls="category" aria-selected="false" >Catégories</a>
+    </li>
+
+</ul>
+
+<div class="tab-content" id="myTabEventContent">
+    <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
+        <div id="calendar"></div>
+    </div>
+    <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">
+        <?php include 'category-list.php';?>
+    </div>
+    <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
+        <?php include 'search-event.php';?>
+    </div>
+</div>
+
+
+
+<%- include("../layout/footer") -%>
