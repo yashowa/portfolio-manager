@@ -8,6 +8,7 @@ const db = require('./models')
 const fileupload = require('./core/fileupload');
 const puppeteer = require('puppeteer');
 const { and, where } = require('sequelize');
+const defaultLang = process.env.DEFAULT_LANG;
   
 
 require('dotenv').config();
@@ -53,7 +54,7 @@ app.get('/',requireAuth, (req, res)=>{
 
 app.get('/media/list', requireAuth, async (req, res)=>{
 
-  const defaultLang = process.env.DEFAULT_LANG;
+
 
   try{ 
     const books = await db.Media.findAll({ include: [{ 
@@ -87,6 +88,38 @@ app.get('/media/list', requireAuth, async (req, res)=>{
   }
 })
 
+app.get('/media/:id', requireAuth, async (req, res)=>{
+  try{
+    const media = await db.Media.findOne({
+      where : {id_media:req.params.id},
+      include:[
+        { model   : db.MediaLang,
+          include : [
+            {
+              model : db.Language,
+              where: {code: defaultLang},
+              required:true
+          }],
+          required:true
+        }]
+      })
+
+    if(!media){
+      return res.status(404).render("media",{media:{}});
+    }
+    const mediaJson =media.toJSON()
+    res.render('media',{
+      media: mediaJson
+    })
+
+    console.log("media",media.toJSON())
+    console.log('okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
+
+  } catch (error) {
+    console.error("Erreur lors de la récupération du media :", error);
+    res.status(500).send("Erreur lors de la récupération du media");
+  }
+})
 
 
 app.get('/event/list',requireAuth , async (req, res)=>{
